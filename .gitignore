@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Stuff to exclude CLion stuff
+.idea/*
+bin/*
+cmake-build-debug/*
+csv13-lib/*
