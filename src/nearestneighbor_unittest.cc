@@ -43,27 +43,10 @@
 #include "gtest/gtest.h"
 
 #include "nearestneighbor.h"
+#include "readcorpus.h"
 #include "GTestNoDeath.h"
 
 namespace {
-
-    void readMovieReviews(const std::string &filename, uint8_t **reviews, size_t neighborCount, size_t neighborSize) {
-        std::ifstream in(filename);
-        if (!in) {
-            std::cerr << "Unable to open reviews file: " << filename << std::endl;
-            return;
-        }
-
-        size_t count = 0;
-        for (; !in.eof() && count < neighborCount; count++) {
-            reviews[count] = new uint8_t[neighborSize];
-            for (size_t j = 0; j < neighborSize; j++) {
-                uint32_t value;
-                in >> value;
-                reviews[count][j] = static_cast<uint8_t >(value);
-            }
-        }
-    }
 
 // Tests edu::sbcc:cs140::String.
 
@@ -109,23 +92,27 @@ namespace {
         // complex number, i, has the correct values for real and imaginary
         // parts.
 
-        uint8_t target[] = {1, 1, 3, 2, 0, 3};
+        uint8_t target[] = {0, 1, 0, 2, 0, 3};
         uint8_t *neighbors[1000];
-        readMovieReviews("../reviews.txt", neighbors, 1000, 6);
+        unittest::csv13::readCorpus("../reviews.txt", neighbors, 1000, 6);
 
-        auto result = findNearestNeighbor(target, neighbors, 100, 6);
+        auto result = findNearestNeighbor(target, neighbors, 1000, 6);
 
-        ASSERT_DOUBLE_EQ(sqrt(3), result.first);
+        ASSERT_DOUBLE_EQ(0, std::get<0>(result)); // Nearest distance should be 0.0
+        ASSERT_EQ(10, std::get<2>(result)); // Count of neighbors at that distance is 10
         _testScore += 5;
 
-        double resultDistance = 0.0;
-        for(size_t i = 0; i < 6; i++) {
-            if (target[i] > 0) {
-                int64_t delta = result.second[i] - target[i];
-                resultDistance += delta * delta;
-            }
-        }
-        ASSERT_EQ(sqrt(3), sqrt(resultDistance));
+        size_t *nearestIndices = std::get<1>(result);
+        ASSERT_EQ(59,  nearestIndices[0]);
+        ASSERT_EQ(200, nearestIndices[1]);
+        ASSERT_EQ(206, nearestIndices[2]);
+        ASSERT_EQ(232, nearestIndices[3]);
+        ASSERT_EQ(381, nearestIndices[4]);
+        ASSERT_EQ(434, nearestIndices[5]);
+        ASSERT_EQ(465, nearestIndices[6]);
+        ASSERT_EQ(559, nearestIndices[7]);
+        ASSERT_EQ(906, nearestIndices[8]);
+        ASSERT_EQ(955, nearestIndices[9]);
         _testScore += 5;
     }
 

@@ -1,17 +1,17 @@
-## EX03-MovieReviews-Part1
+## EX04-MovieReviews-Part2
 
 The objective of this assignment is to familiarize yourselves with arrays, heap memory management and error checking.
 
-This assignment is the beginning of a multi-assignment project called Movie Reviews. The goal of the overall project is
+This assignment is the second part of a multi-assignment project called Movie Reviews. The goal of the overall project is
 to implement a basic machine learning algorithm called Nearest Neighbor to predict the review values for movies a user has
 not entered yet based on similar reviewers within a corpus of reviews. This assignment is the first step in that algorithm, 
 which is to find the nearest neighbor given a target and a corpus.
 
-In this assignment you will create a single function, called `findNearestNeighbor`, which takes a target, a corpus
+In this assignment you will update the `findNearestNeighbor` function, which takes a target, a corpus
 of reviews along with the size of the corpus, and the number of elements in all the arrays. The function will then
-find the entry in the corpus with the minimum distance from the target. The function then returns the minimum distance
-and the entry in the corpus that had that minimum distance, as an array. Remember since you are returning two values
-you will have to return these values as an `std::pair`.
+find all the entries in the corpus with the minimum distance from the target. The function then returns the minimum distance
+, an array of indices of all the rows that are at the minimum distance, and the number of rows at that minimum.
+Remember since you are returning three values you will have to return these values as an `std::tuple`.
 
 ### Getting Started
 
@@ -31,7 +31,7 @@ Your function should be in the namespace `edu::vcccd::vc::csv13` and should have
 
 ```cpp
 namespace edu { namespace vcccd { namespace vc { namespace csv13 {
-  std::pair<double, uint8_t> findNearestNeighbor(uint8_t *target, uint8_t **corpus, size_t corpusSize, size_t arraySize);
+  std::tuple<double, size_t*, size_t> findNearestNeighbor(uint8_t *target, uint8_t **corpus, size_t corpusSize, size_t arraySize);
 }}}}
 ```
 
@@ -92,6 +92,30 @@ int main() {
 }
 ```
 
+You'll also notice that there is a `readcorpus.h` && `readcorpus.cc` file that contains a single function
+`readCorpus`. This function can be used in `main` to read a list of reviews that you can test your code against.
+These reviews are the same as used on the unit tests for grading this assignment.
+
+Also, the `tuple` class has a peculiar way of getting the values of all the members of the tuple. The following
+code shows how to use the `readCorpus` function and accessing members of the `tuple`.
+
+```cpp
+#include <tuple>
+#include "nearestneighbor.h"
+#incoude "readcorpus.h"
+
+int main() {
+    uint8_t *neighbors[1000];
+    unittest::csv13::readCorpus("../reviews.txt", neighbors, 1000, 6);
+
+    uint8_t neighbor[] = {0, 1, 0, 2, 0, 3};
+    auto result = edu::vcccd::vc::csv13::findNearestNeighbor(neighbor, neighbors, 1000, 6);
+    std::cout << "nearest distance: " << std::get<0>(result) << std::endl; // Access the first member of a tuple
+  
+  return 0;
+}
+```
+
 ### Running the code for this project
 
 Running this code should be straightforward. In the drop-down 
@@ -102,7 +126,18 @@ In the **Run** view below the code you should see the output
 of running the program. It should look something like this:
 
 ```bash
-nearest distance: 1.73205
+nearest distance: 0
+the nearest neighbors are at the following inidices: 
+59
+200
+206
+232
+381
+434
+465
+559
+906
+955
 
 Process finished with exit code 0
 ```
