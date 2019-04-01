@@ -54,7 +54,7 @@ namespace {
     using std::ostringstream;
     using std::string;
 
-    using edu::vcccd::vc::csv13::findNearestNeighbor;
+    using edu::sbcc::cs140::findNearestNeighbor;
     
     using namespace ::testing_internal;
 
@@ -94,7 +94,7 @@ namespace {
 
         uint8_t target[] = {0, 1, 0, 2, 0, 3};
         uint8_t *neighbors[1000];
-        unittest::csv13::readCorpus("../reviews.txt", neighbors, 1000, 6);
+        unittest::cs140::readCorpus("../reviews.txt", neighbors, 1000, 6);
 
         auto result = findNearestNeighbor(target, neighbors, 1000, 6);
 

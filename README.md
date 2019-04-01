@@ -1,4 +1,4 @@
-## EX04-MovieReviews-Part2
+## EX05-MovieReviews-Part2
 
 The objective of this assignment is to familiarize yourselves with arrays, heap memory management and error checking.
 
@@ -16,7 +16,7 @@ Remember since you are returning three values you will have to return these valu
 ### Getting Started
 
 The first thing you will need to do is accept the invitation to this assignment
-from GitHub Classroom. You can click [here](https://classroom.github.com/a/_eRWh5dJ) to accept the invitation. 
+from GitHub Classroom. You can click [here](https://classroom.github.com/a/j_PXi-Me) to accept the invitation. 
 
 Be sure that you accept the invitation first and use the URL from
 the your new project when you clone it in CLion.
@@ -27,10 +27,10 @@ Writing the code for this project is very simple. You will create three files: a
 
 #### findNearestNeighbor
 
-Your function should be in the namespace `edu::vcccd::vc::csv13` and should have the following declaration:
+Your function should be in the namespace `edu::sbcc::cs140` and should have the following declaration:
 
 ```cpp
-namespace edu { namespace vcccd { namespace vc { namespace csv13 {
+namespace edu { namespace sbcc { namespace cs140 {
   std::tuple<double, size_t*, size_t> findNearestNeighbor(uint8_t *target, uint8_t **corpus, size_t corpusSize, size_t arraySize);
 }}}}
 ```
@@ -48,7 +48,7 @@ Under **Name** fill in
 nearestneighbor. CLion will add the `.h` extension. Press **OK**. You should now see the file `nearestneighbor.h` in
 the project explorer in the `include` directory.
 
-Write your declaration of the `findNearestNeighbor` in here in the `edu::vcccd::vc::csv13` namepspace.
+Write your declaration of the `findNearestNeighbor` in here in the `edu::sbcc::cs140` namepspace.
 
 ##### Implementation
 
@@ -64,7 +64,7 @@ use the `.cc` extension. Select `.cc` in the **Type** drop-down
 and press **OK**. You should now see the file `nearestneighbor.cc` (or whatever you named the file) in
 the project explorer in the `src` directory.
 
-Write your implementation of the `findNearestNeighbor` in here in the `edu::vcccd::vc::csv13` namepspace.
+Write your implementation of the `findNearestNeighbor` in here in the `edu::sbcc::cs140` namepspace.
 
 #### main()
 
@@ -106,10 +106,10 @@ code shows how to use the `readCorpus` function and accessing members of the `tu
 
 int main() {
     uint8_t *neighbors[1000];
-    unittest::csv13::readCorpus("../reviews.txt", neighbors, 1000, 6);
+    unittest::cv140::readCorpus("../reviews.txt", neighbors, 1000, 6);
 
     uint8_t neighbor[] = {0, 1, 0, 2, 0, 3};
-    auto result = edu::vcccd::vc::csv13::findNearestNeighbor(neighbor, neighbors, 1000, 6);
+    auto result = edu::sbcc::cs140::findNearestNeighbor(neighbor, neighbors, 1000, 6);
     std::cout << "nearest distance: " << std::get<0>(result) << std::endl; // Access the first member of a tuple
   
   return 0;
@@ -190,4 +190,4 @@ in the lower left corner and select the _Console_ tab.
  
 Finally, right click on the project name, then select `Git -> Repository -> Push...`. Follow the onscreen directions
 and press **OK**. This step will then submit them to the cloud to have the tests run for grading. You can find your results
-in the [#build](https://vc-csv13-spring2019.slack.com/messages/CFBKTRAAU) channel on slack.
+in the [#build](https://sbcc-cs140-spring2019.slack.com/messages/CFSCW23UK) channel on slack.

@@ -6,7 +6,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace unittest { namespace csv13 {
+namespace unittest { namespace cs140 {
 void readCorpus(const std::string &filename, uint8_t **corpus, size_t corpusCount, size_t docSize) {
     std::ifstream in(filename);
     if (!in) {
